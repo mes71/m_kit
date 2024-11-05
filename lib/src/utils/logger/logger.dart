@@ -6,17 +6,16 @@ class MLogger {
   static void log(String message) {
     if (kDebugMode) {
       debugPrint(_buildMessage(message, ConsoleColor.cyan));
-      debugPrint("log: $message");
     }
   }
 
   static String _buildMessage(String message, ConsoleColor color) {
     StringBuffer buffer = StringBuffer();
     buffer.writeln(
-        '${color.code}╔═${List.generate(85, (index) => '═').join()}══╗${color.code}');
+        '${color.code}╔═${List.generate(85, (index) => '═').join()}══╗${ConsoleColor.reset.code}');
     buffer.write(_buildLine(message, color));
     buffer.writeln(
-        '${color.code}╚═${List.generate(85, (index) => '═').join()}══╝${color.code}');
+        '${color.code}╚═${List.generate(85, (index) => '═').join()}══╝${ConsoleColor.reset.code}');
     return buffer.toString();
   }
 
@@ -27,7 +26,8 @@ class MLogger {
           i, i + 80 > message.length ? message.length : i + 80);
       String padding =
           List.generate(87 - mainLine.length, (index) => ' ').join();
-      buffer.writeln('${color.code}║ $mainLine$padding║${color.code}');
+      buffer.writeln(
+          '${color.code}║ $mainLine$padding║${ConsoleColor.reset.code}');
     }
     return buffer.toString();
   }
