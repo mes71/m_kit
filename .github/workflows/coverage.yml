@@ -33,6 +33,12 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           files: coverage/lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }} # Only if private repo
+          token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           flags: flutter
+
+
+      - name: Upload test results to Codecov
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
