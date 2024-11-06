@@ -11,5 +11,6 @@ enum ConsoleColor {
 
   final String code;
   const ConsoleColor(this.code);
+
   String getColor() => code;
 }
