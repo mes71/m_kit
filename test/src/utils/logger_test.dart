@@ -1,5 +1,5 @@
+import 'package:MKit/m_kit.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m_kit/src/utils/logger/logger.dart';
 
 void main() {
   test('log', () {

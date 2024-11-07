@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  m_kit:
+  MKit:
     path: ../
 
 dev_dependencies:
@@ -19,3 +19,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+   - family: dast
+     fonts:
+       - asset: assets/fonts/danst_nevis.otf
+
+   - family: iransans
+     fonts:
+       - asset: assets/fonts/iran_sans.ttf
