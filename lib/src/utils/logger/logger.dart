@@ -5,7 +5,7 @@ import 'console_color.dart';
 class MLogger {
   static void log(String message) {
     if (kDebugMode) {
-      debugPrint(_buildMessage(message, ConsoleColor.cyan));
+      debugPrintThrottled(_buildMessage(message, ConsoleColor.cyan));
     }
   }
 
