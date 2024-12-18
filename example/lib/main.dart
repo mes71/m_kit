@@ -34,7 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    MLogger.log("Hello, MKit!");
   }
 
   @override
@@ -51,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "سلام برتو این یک تست است1 2 3 4 5 6 7 8 9 0",
+                "سلام برتو این یک تست است 1 2 3 4 5 6 7 8 9 0",
                 style: TextStyle(
                   fontFamily: 'dast',
                 ),
@@ -73,14 +72,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   MLogger.log(value);
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               MTextField.password(
                 label: "password",
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
                   MLogger.log(value);
                 },
+                onSubmitted: (value) {
+                  MLogger.log(value);
+                },
               ),
+              MOtp(
+                onCompleted: (code) {
+                  MLogger.log(code);
+                },
+              )
             ],
           ),
         ),
