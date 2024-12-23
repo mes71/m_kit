@@ -27,25 +27,29 @@ class _MOtpState extends State<MOtp> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: List.generate(widget.length, (index) {
-        return Container(
-          padding: EdgeInsets.all(8),
-          width: 60,
-          child: TextField(
-            focusNode: _focusNodes[index],
-            keyboardType: TextInputType.number,
-            maxLength: 1,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 18),
-            decoration: const InputDecoration(
-              counterText: "", // Hides the maxLength counter
-              border: OutlineInputBorder(),
-            ),
-            onChanged: (value) => _onChanged(index, value),
-          ),
-        );
-      }),
+    return SizedBox(
+      height: 65,
+      child: ListView.builder(
+          itemCount: widget.length,
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (BuildContext context, int index) => Container(
+                padding: const EdgeInsets.all(8),
+                width: 60,
+                height: 60,
+                child: TextField(
+                  focusNode: _focusNodes[index],
+                  keyboardType: TextInputType.number,
+                  maxLength: 1,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 18),
+                  decoration: const InputDecoration(
+                    counterText: "", // Hides the maxLength counter
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (value) => _onChanged(index, value),
+                ),
+              )),
     );
   }
 
@@ -63,12 +67,15 @@ class _MOtpState extends State<MOtp> {
 
   void _onChanged(int index, String value) {
     if (value.isEmpty) {
+      if (index > 0) {
+        _focusNodes[index - 1].requestFocus();
+      }
+    } else {
       if (index < widget.length - 1) {
         _focusNodes[index + 1].requestFocus();
-      } else {
-        _focusNodes[index].unfocus();
       }
     }
+
     final otp = _controllers.map((c) => c.text).join();
 
     if (otp.length == widget.length) {
