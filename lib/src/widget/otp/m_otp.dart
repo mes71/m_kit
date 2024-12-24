@@ -6,6 +6,7 @@ class MOtp extends StatefulWidget {
       {super.key,
       this.length = 6,
       required this.onCompleted,
+      this.initText,
       this.width,
       this.height,
       this.separator,
@@ -25,6 +26,7 @@ class MOtp extends StatefulWidget {
   TextStyle? textStyle;
   bool? filled;
   Color? filledColor;
+  String? initText;
 
   @override
   State<MOtp> createState() => _MOtpState();
@@ -33,11 +35,18 @@ class MOtp extends StatefulWidget {
 class _MOtpState extends State<MOtp> {
   late List<TextEditingController> _controllers;
   late List<FocusNode> _focusNodes;
+  int _focusedIndex = -1;
 
   @override
   void initState() {
     super.initState();
-    _controllers = List.generate(widget.length, (_) => TextEditingController());
+    _controllers = List.generate(widget.length, (index) {
+      var editing = TextEditingController();
+      if (widget.initText != null) {
+        editing.text = widget.initText![index];
+      }
+      return editing;
+    });
     _focusNodes = List.generate(widget.length, (_) => FocusNode());
   }
 
@@ -52,11 +61,27 @@ class _MOtpState extends State<MOtp> {
           separatorBuilder: (BuildContext context, int index) => SizedBox(
                 width: widget.separator?.toDouble() ?? 10,
               ),
-          itemBuilder: (BuildContext context, int index) => SizedBox(
+          itemBuilder: (BuildContext context, int index) {
+            final isFocused = _focusedIndex == index;
+            return AnimatedScale(
+              scale: isFocused ? 1.5 : 1.0,
+              duration: const Duration(milliseconds: 300),
+              child: SizedBox(
                 width: widget.width?.toDouble() ?? 48,
                 height: widget.height?.toDouble() ?? 48,
                 child: TextField(
+                  onTapOutside: (event) {
+                    FocusScope.of(context).unfocus();
+                    setState(() {
+                      _focusedIndex = -1;
+                    });
+                  },
                   focusNode: _focusNodes[index],
+                  onTap: () {
+                    setState(() {
+                      _focusedIndex = index;
+                    });
+                  },
                   keyboardType: TextInputType.number,
                   maxLength: 1,
                   textAlign: TextAlign.center,
@@ -69,14 +94,19 @@ class _MOtpState extends State<MOtp> {
                     counterText: "",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                            color: widget.borderSideColor ??
-                                MColor.bgTextFiledBorder,
-                            width: widget.borderSideWidth?.toDouble() ?? 1.0)),
+                        borderSide: _focusNodes[index].hasFocus
+                            ? BorderSide(
+                                color: widget.borderSideColor ??
+                                    MColor.bgTextFiledBorder,
+                                width:
+                                    widget.borderSideWidth?.toDouble() ?? 1.0)
+                            : BorderSide.none),
                   ),
                   onChanged: (value) => _onChanged(index, value),
                 ),
-              )),
+              ),
+            );
+          }),
     );
   }
 
@@ -96,10 +126,16 @@ class _MOtpState extends State<MOtp> {
     if (value.isEmpty) {
       if (index > 0) {
         _focusNodes[index - 1].requestFocus();
+        setState(() {
+          _focusedIndex = index - 1;
+        });
       }
     } else {
       if (index < widget.length - 1) {
         _focusNodes[index + 1].requestFocus();
+        setState(() {
+          _focusedIndex = index + 1;
+        });
       }
     }
 
