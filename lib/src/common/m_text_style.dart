@@ -1,5 +1,6 @@
-import 'package:MKit/src/widget/common/m_color.dart';
 import 'package:flutter/material.dart';
+
+import 'm_color.dart';
 
 class MTextStyle {
   MTextStyle._();

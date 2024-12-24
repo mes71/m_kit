@@ -1,14 +1,30 @@
+import 'package:MKit/src/common/m_color.dart';
 import 'package:flutter/material.dart';
 
 class MOtp extends StatefulWidget {
-  const MOtp({
-    super.key,
-    this.length = 6,
-    required this.onCompleted,
-  });
+  MOtp(
+      {super.key,
+      this.length = 6,
+      required this.onCompleted,
+      this.width,
+      this.height,
+      this.separator,
+      this.textStyle,
+      this.filled,
+      this.filledColor,
+      this.borderSideWidth,
+      this.borderSideColor});
 
   final int length;
   final void Function(String) onCompleted;
+  Color? borderSideColor;
+  int? borderSideWidth;
+  int? separator;
+  int? width;
+  int? height;
+  TextStyle? textStyle;
+  bool? filled;
+  Color? filledColor;
 
   @override
   State<MOtp> createState() => _MOtpState();
@@ -28,24 +44,35 @@ class _MOtpState extends State<MOtp> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 65,
-      child: ListView.builder(
+      height: (widget.height ?? 55) + 10,
+      child: ListView.separated(
           itemCount: widget.length,
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
-          itemBuilder: (BuildContext context, int index) => Container(
-                padding: const EdgeInsets.all(8),
-                width: 60,
-                height: 60,
+          separatorBuilder: (BuildContext context, int index) => SizedBox(
+                width: widget.separator?.toDouble() ?? 10,
+              ),
+          itemBuilder: (BuildContext context, int index) => SizedBox(
+                width: widget.width?.toDouble() ?? 48,
+                height: widget.height?.toDouble() ?? 48,
                 child: TextField(
                   focusNode: _focusNodes[index],
                   keyboardType: TextInputType.number,
                   maxLength: 1,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 18),
-                  decoration: const InputDecoration(
-                    counterText: "", // Hides the maxLength counter
-                    border: OutlineInputBorder(),
+                  textAlignVertical: TextAlignVertical.center,
+                  style: widget.textStyle ?? const TextStyle(fontSize: 18),
+                  decoration: InputDecoration(
+                    filled: widget.filled ?? true,
+                    fillColor: widget.filledColor ?? MColor.bgTextFiled,
+                    contentPadding: const EdgeInsets.all(2),
+                    counterText: "",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(
+                            color: widget.borderSideColor ??
+                                MColor.bgTextFiledBorder,
+                            width: widget.borderSideWidth?.toDouble() ?? 1.0)),
                   ),
                   onChanged: (value) => _onChanged(index, value),
                 ),

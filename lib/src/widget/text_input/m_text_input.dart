@@ -1,5 +1,5 @@
-import 'package:MKit/src/widget/common/m_color.dart';
-import 'package:MKit/src/widget/common/m_text_style.dart';
+import 'package:MKit/src/common/m_color.dart';
+import 'package:MKit/src/common/m_text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

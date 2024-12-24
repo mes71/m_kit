@@ -5,4 +5,7 @@ class MColor {
   static const Color borderError = Color(0xFFFECDC9);
   static const Color textPrimaryColorLight = Color(0xff353535);
   static const Color textPrimaryColorDark = Color(0xffFFFFFF);
+
+  static Color bgTextFiled = Colors.grey.shade200;
+  static Color bgTextFiledBorder = Colors.grey.shade400;
 }
