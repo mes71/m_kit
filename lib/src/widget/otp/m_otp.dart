@@ -38,6 +38,26 @@ class _MOtpState extends State<MOtp> {
   int _focusedIndex = -1;
 
   @override
+  void didUpdateWidget(covariant MOtp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.initText != oldWidget.initText && widget.initText != null) {
+      setState(() {
+        for (int i = 0; i < widget.length; i++) {
+          if (i < widget.initText!.length) {
+            _controllers[i].text = widget.initText![i];
+            _focusedIndex = i;
+          } else {
+            _controllers[i].clear();
+          }
+        }
+        _focusedIndex = -1;
+        FocusScope.of(context).unfocus();
+      });
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
     _controllers = List.generate(widget.length, (index) {
@@ -70,6 +90,7 @@ class _MOtpState extends State<MOtp> {
                 width: widget.width?.toDouble() ?? 48,
                 height: widget.height?.toDouble() ?? 48,
                 child: TextField(
+                  controller: _controllers[index],
                   onTapOutside: (event) {
                     FocusScope.of(context).unfocus();
                     setState(() {

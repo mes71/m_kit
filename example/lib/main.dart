@@ -31,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String? otp;
   @override
   void initState() {
     super.initState();
@@ -84,10 +85,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
               MOtp(
+                initText: otp,
                 onCompleted: (code) {
                   MLogger.log(code);
                 },
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      otp = "123456";
+                    });
+                  },
+                  child: Text('data'))
             ],
           ),
         ),
