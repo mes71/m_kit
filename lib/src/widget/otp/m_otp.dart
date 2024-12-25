@@ -41,7 +41,9 @@ class _MOtpState extends State<MOtp> {
   void didUpdateWidget(covariant MOtp oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.initText != oldWidget.initText && widget.initText != null) {
+    if (widget.initText != oldWidget.initText &&
+        widget.initText != null &&
+        (widget.initText?.isNotEmpty ?? false)) {
       setState(() {
         for (int i = 0; i < widget.length; i++) {
           if (i < widget.initText!.length) {
