@@ -64,7 +64,7 @@ class _MOtpState extends State<MOtp> {
     super.initState();
     _controllers = List.generate(widget.length, (index) {
       var editing = TextEditingController();
-      if (widget.initText != null) {
+      if (widget.initText != null && (widget.initText?.isNotEmpty ?? false)) {
         editing.text = widget.initText![index];
       }
       return editing;
