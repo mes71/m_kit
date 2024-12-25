@@ -74,62 +74,65 @@ class _MOtpState extends State<MOtp> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: (widget.height ?? 55) + 10,
-      child: ListView.separated(
-          itemCount: widget.length,
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          separatorBuilder: (BuildContext context, int index) => SizedBox(
-                width: widget.separator?.toDouble() ?? 10,
-              ),
-          itemBuilder: (BuildContext context, int index) {
-            final isFocused = _focusedIndex == index;
-            return AnimatedScale(
-              scale: isFocused ? 1.5 : 1.0,
-              duration: const Duration(milliseconds: 300),
-              child: SizedBox(
-                width: widget.width?.toDouble() ?? 48,
-                height: widget.height?.toDouble() ?? 48,
-                child: TextField(
-                  controller: _controllers[index],
-                  onTapOutside: (event) {
-                    FocusScope.of(context).unfocus();
-                    setState(() {
-                      _focusedIndex = -1;
-                    });
-                  },
-                  focusNode: _focusNodes[index],
-                  onTap: () {
-                    setState(() {
-                      _focusedIndex = index;
-                    });
-                  },
-                  keyboardType: TextInputType.number,
-                  maxLength: 1,
-                  textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
-                  style: widget.textStyle ?? const TextStyle(fontSize: 18),
-                  decoration: InputDecoration(
-                    filled: widget.filled ?? true,
-                    fillColor: widget.filledColor ?? MColor.bgTextFiled,
-                    contentPadding: const EdgeInsets.all(2),
-                    counterText: "",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: _focusNodes[index].hasFocus
-                            ? BorderSide(
-                                color: widget.borderSideColor ??
-                                    MColor.bgTextFiledBorder,
-                                width:
-                                    widget.borderSideWidth?.toDouble() ?? 1.0)
-                            : BorderSide.none),
-                  ),
-                  onChanged: (value) => _onChanged(index, value),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SizedBox(
+        height: (widget.height ?? 55) + 10,
+        child: ListView.separated(
+            itemCount: widget.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (BuildContext context, int index) => SizedBox(
+                  width: widget.separator?.toDouble() ?? 10,
                 ),
-              ),
-            );
-          }),
+            itemBuilder: (BuildContext context, int index) {
+              final isFocused = _focusedIndex == index;
+              return AnimatedScale(
+                scale: isFocused ? 1.5 : 1.0,
+                duration: const Duration(milliseconds: 300),
+                child: SizedBox(
+                  width: widget.width?.toDouble() ?? 48,
+                  height: widget.height?.toDouble() ?? 48,
+                  child: TextField(
+                    controller: _controllers[index],
+                    onTapOutside: (event) {
+                      FocusScope.of(context).unfocus();
+                      setState(() {
+                        _focusedIndex = -1;
+                      });
+                    },
+                    focusNode: _focusNodes[index],
+                    onTap: () {
+                      setState(() {
+                        _focusedIndex = index;
+                      });
+                    },
+                    keyboardType: TextInputType.number,
+                    maxLength: 1,
+                    textAlign: TextAlign.center,
+                    textAlignVertical: TextAlignVertical.center,
+                    style: widget.textStyle ?? const TextStyle(fontSize: 18),
+                    decoration: InputDecoration(
+                      filled: widget.filled ?? true,
+                      fillColor: widget.filledColor ?? MColor.bgTextFiled,
+                      contentPadding: const EdgeInsets.all(2),
+                      counterText: "",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: _focusNodes[index].hasFocus
+                              ? BorderSide(
+                                  color: widget.borderSideColor ??
+                                      MColor.bgTextFiledBorder,
+                                  width:
+                                      widget.borderSideWidth?.toDouble() ?? 1.0)
+                              : BorderSide.none),
+                    ),
+                    onChanged: (value) => _onChanged(index, value),
+                  ),
+                ),
+              );
+            }),
+      ),
     );
   }
 
