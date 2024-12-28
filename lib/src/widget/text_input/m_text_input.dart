@@ -160,8 +160,7 @@ class _MTextFieldState extends State<MTextField> {
           },
           onFieldSubmitted: widget.onSubmitted,
           maxLength: widget.maxLength,
-          textDirection:
-              widget._isPassword ? TextDirection.ltr : TextDirection.rtl,
+          textDirection: TextDirection.rtl,
           style: widget.style ?? MTextStyle.bodyText2(context),
           keyboardType: widget.keyboardType,
           decoration: InputDecoration(
