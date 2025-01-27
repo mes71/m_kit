@@ -19,3 +19,16 @@ dev_dependencies:
   test: ^1.25.7
 
 flutter:
+  fonts:
+    - family: diroz
+      fonts:
+        - asset: fonts/dirooz.ttf
+
+    - family: yekan
+      fonts:
+        - asset: fonts/far_yekan.ttf
+
+    - family: sade
+      fonts:
+        - asset: fonts/sade.ttf
+

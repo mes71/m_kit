@@ -6,6 +6,7 @@ class MTextStyle {
   MTextStyle._();
 
   static TextStyle headline1(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w700,
         fontSize: 48,
@@ -14,6 +15,7 @@ class MTextStyle {
       );
 
   static TextStyle headline2(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w700,
         fontSize: 40,
@@ -22,6 +24,7 @@ class MTextStyle {
       );
 
   static TextStyle headline3(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w700,
         fontSize: 36,
@@ -30,6 +33,7 @@ class MTextStyle {
       );
 
   static TextStyle headline4(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w700,
         fontSize: 32,
@@ -38,6 +42,7 @@ class MTextStyle {
       );
 
   static TextStyle headline5(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w700,
         fontSize: 28,
@@ -46,6 +51,7 @@ class MTextStyle {
       );
 
   static TextStyle headline6(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w700,
         fontSize: 24,
@@ -54,6 +60,7 @@ class MTextStyle {
       );
 
   static TextStyle button(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w700,
         fontSize: 18,
@@ -62,6 +69,7 @@ class MTextStyle {
       );
 
   static TextStyle subtitle1(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w500,
         fontSize: 20,
@@ -70,6 +78,7 @@ class MTextStyle {
       );
 
   static TextStyle subtitle2(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w600,
         fontSize: 18,
@@ -78,6 +87,7 @@ class MTextStyle {
       );
 
   static TextStyle buttonText(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w600,
         fontSize: 14,
@@ -87,6 +97,7 @@ class MTextStyle {
 
   /*<==============================================================>*/
   static TextStyle bodyText1(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w500,
         fontSize: 16,
@@ -95,6 +106,7 @@ class MTextStyle {
       );
 
   static TextStyle bodyText2(BuildContext context) => const TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w400,
         fontSize: 14,
@@ -103,6 +115,7 @@ class MTextStyle {
       );
 
   static TextStyle caption(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w400,
         fontSize: 12,
@@ -111,6 +124,7 @@ class MTextStyle {
       );
 
   static TextStyle caption2(BuildContext context) => TextStyle(
+        fontFamily: 'yekan',
         textBaseline: TextBaseline.alphabetic,
         fontWeight: FontWeight.w400,
         fontSize: 10,
