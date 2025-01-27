@@ -143,6 +143,14 @@ class _MTextFieldState extends State<MTextField> {
   }
 
   @override
+  void didUpdateWidget(covariant MTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initText != oldWidget.initText) {
+      _controller.text = widget.initText ?? '';
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
         padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 6.0),
