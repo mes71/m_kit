@@ -19,6 +19,7 @@ class MTextField extends StatefulWidget {
       this.initText,
       this.isForNumber = false,
       this.style,
+      this.hintStyle,
       this.suffixIcon,
       this.validator,
       this.readonly = false,
@@ -48,6 +49,7 @@ class MTextField extends StatefulWidget {
       this.isDense,
       this.initText,
       this.style,
+      this.hintStyle,
       this.suffixIcon,
       this.radius,
       this.validator,
@@ -78,6 +80,7 @@ class MTextField extends StatefulWidget {
       this.isDense,
       this.initText,
       this.style,
+      this.hintStyle,
       this.suffixIcon,
       this.prefixIcon,
       this.radius,
@@ -105,6 +108,7 @@ class MTextField extends StatefulWidget {
   final String? label;
   final EdgeInsets? padding;
   final TextStyle? style;
+  final TextStyle? hintStyle;
   final bool showCounter;
   final bool? isDense;
   final bool? isForNumber;
@@ -194,7 +198,7 @@ class _MTextFieldState extends State<MTextField> {
               labelText: widget.label,
               filled: widget.filled,
               counter: widget.showCounter ? null : const SizedBox(),
-              hintStyle: MTextStyle.bodyText2(context),
+              hintStyle: widget.hintStyle,
               enabledBorder: widget._inputBorder,
               focusedBorder: widget._inputBorder,
               border: widget._inputBorder),
