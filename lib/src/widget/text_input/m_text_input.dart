@@ -21,6 +21,7 @@ class MTextField extends StatefulWidget {
       this.style,
       this.hintStyle,
       this.suffixIcon,
+      this.prefixIcon,
       this.validator,
       this.readonly = false,
       this.boxConstraints,
