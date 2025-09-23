@@ -1,55 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 
-enum LogLevel {
-  debug,
-  info,
-  warning,
-  error,
-  verbose,
-}
-
-enum ConsoleColor {
-  reset('\x1B[0m'),
-  black('\x1B[30m'),
-  red('\x1B[31m'),
-  green('\x1B[32m'),
-  yellow('\x1B[33m'),
-  blue('\x1B[34m'),
-  magenta('\x1B[35m'),
-  cyan('\x1B[36m'),
-  white('\x1B[37m'),
-  gray('\x1B[90m');
-
-  const ConsoleColor(this.code);
-  final String code;
-}
-
-/// Base sink interface
-abstract class LogSink {
-  void write(String message);
-}
-
-/// Console sink
-class ConsoleSink implements LogSink {
-  @override
-  void write(String message) => debugPrint(message);
-}
-
-/// File sink
-class FileSink implements LogSink {
-  final IOSink _sink;
-  FileSink(String path) : _sink = File(path).openWrite(mode: FileMode.append);
-
-  @override
-  void write(String message) => _sink.writeln(message);
-
-  Future<void> dispose() async {
-    await _sink.flush();
-    await _sink.close();
-  }
-}
+import 'constant.dart';
+import 'sink.dart';
 
 class MLogger {
   static LogLevel _minLevel = LogLevel.debug;
@@ -67,7 +21,7 @@ class MLogger {
     bool enableColors = true,
     String tag = 'APP',
     List<LogSink>? sinks,
-    int maxWidth = 85,
+    int maxWidth = 100,
   }) {
     _minLevel = minLevel;
     _enableTimestamp = enableTimestamp;
@@ -91,8 +45,12 @@ class MLogger {
   static void w(String message, [String? tag]) =>
       _log(message, LogLevel.warning, tag);
 
-  static void e(String message,
-      [String? tag, Object? error, StackTrace? stackTrace]) {
+  static void e(
+    String message, [
+    String? tag,
+    Object? error,
+    StackTrace? stackTrace,
+  ]) {
     String fullMessage = message;
     if (error != null) fullMessage += '\nError: $error';
     if (stackTrace != null) fullMessage += '\nStackTrace:\n$stackTrace';
@@ -103,8 +61,11 @@ class MLogger {
       _log(message, LogLevel.verbose, tag);
 
   /// Pretty print JSON / Map
-  static void json(Object? obj,
-      [String? label, LogLevel level = LogLevel.debug]) {
+  static void json(
+    Object? obj, [
+    String? label,
+    LogLevel level = LogLevel.debug,
+  ]) {
     try {
       final pretty = const JsonEncoder.withIndent('  ').convert(obj);
       object(pretty, label, level);
@@ -114,16 +75,20 @@ class MLogger {
   }
 
   /// Log object
-  static void object(Object? obj,
-      [String? label, LogLevel level = LogLevel.debug]) {
+  static void object(
+    Object? obj, [
+    String? label,
+    LogLevel level = LogLevel.debug,
+  ]) {
     final message = label != null ? '$label: $obj' : obj.toString();
     _log(message, level);
   }
 
   /// Divider
   static void divider([String? text, LogLevel level = LogLevel.debug]) {
-    final message =
-    text != null ? '═══ $text ═══' : '═══════════════════════════════';
+    final message = text != null
+        ? '═══ $text ═══'
+        : '═══════════════════════════════';
     _log(message, level);
   }
 
@@ -136,8 +101,12 @@ class MLogger {
     final tagStr = tag ?? _tag;
 
     final header = '$timestamp[$tagStr] $levelStr';
-    final formattedMessage =
-    _buildMessage(message, color, header, maxWidth: _maxWidth);
+    final formattedMessage = _buildMessage(
+      message,
+      color,
+      header,
+      maxWidth: _maxWidth,
+    );
 
     for (final sink in _sinks) {
       sink.write(formattedMessage);
@@ -191,39 +160,58 @@ class MLogger {
   }
 
   static String _buildMessage(
-      String message, ConsoleColor color, String header,
-      {int maxWidth = 85}) {
+    String message,
+    ConsoleColor color,
+    String header, {
+    int maxWidth = 85,
+  }) {
     final lines = <String>[];
 
     for (final line in message.split('\n')) {
       for (var i = 0; i < line.length; i += maxWidth) {
         lines.add(
-            line.substring(i, i + maxWidth > line.length ? line.length : i + maxWidth));
+          line.substring(
+            i,
+            i + maxWidth > line.length ? line.length : i + maxWidth,
+          ),
+        );
       }
       if (line.isEmpty) lines.add('');
     }
 
     // پیدا کردن طول بلندترین خط
-    final contentWidth =
-    lines.fold<int>(header.length, (prev, line) => line.length > prev ? line.length : prev);
+    final contentWidth = lines.fold<int>(
+      header.length,
+      (prev, line) => line.length > prev ? line.length : prev,
+    );
 
     final width = contentWidth + 2; // +2 فاصله قبل و بعد متن
     final buffer = StringBuffer();
 
     // Top border
-    buffer.writeln('${color.code}╔═${List.generate(width, (_) => '═').join()}═╗${ConsoleColor.reset.code}');
+    buffer.writeln(
+      '${color.code}╔═${List.generate(width, (_) => '═').join()}═╗${ConsoleColor.reset.code}',
+    );
 
     // Header
-    buffer.writeln('${color.code}║ $header${' ' * (width - header.length)}║${ConsoleColor.reset.code}');
-    buffer.writeln('${color.code}╠═${List.generate(width, (_) => '═').join()}═╣${ConsoleColor.reset.code}');
+    buffer.writeln(
+      '${color.code}║ $header${' ' * (width - header.length)}║${ConsoleColor.reset.code}',
+    );
+    buffer.writeln(
+      '${color.code}╠═${List.generate(width, (_) => '═').join()}═╣${ConsoleColor.reset.code}',
+    );
 
     // Content
     for (final line in lines) {
-      buffer.writeln('${color.code}║ $line${' ' * (width - line.length)}║${ConsoleColor.reset.code}');
+      buffer.writeln(
+        '${color.code}║ $line${' ' * (width - line.length)}║${ConsoleColor.reset.code}',
+      );
     }
 
     // Bottom border
-    buffer.writeln('${color.code}╚═${List.generate(width, (_) => '═').join()}═╝${ConsoleColor.reset.code}');
+    buffer.writeln(
+      '${color.code}╚═${List.generate(width, (_) => '═').join()}═╝${ConsoleColor.reset.code}',
+    );
 
     return buffer.toString();
   }

@@ -1,4 +1,14 @@
+
+enum LogLevel {
+  debug,
+  info,
+  warning,
+  error,
+  verbose,
+}
+
 enum ConsoleColor {
+  reset('\x1B[0m'),
   black('\x1B[30m'),
   red('\x1B[31m'),
   green('\x1B[32m'),
@@ -7,11 +17,8 @@ enum ConsoleColor {
   magenta('\x1B[35m'),
   cyan('\x1B[36m'),
   white('\x1B[37m'),
-  reset('\x1B[0m');
-
-  final String code;
+  gray('\x1B[90m');
 
   const ConsoleColor(this.code);
-
-  String getColor() => code;
+  final String code;
 }
