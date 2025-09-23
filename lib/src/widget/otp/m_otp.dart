@@ -1,4 +1,5 @@
-import 'package:MKit/src/common/m_color.dart';
+/*
+
 import 'package:flutter/material.dart';
 
 class MOtp extends StatefulWidget {
@@ -114,15 +115,14 @@ class _MOtpState extends State<MOtp> {
                     style: widget.textStyle ?? const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
                       filled: widget.filled ?? true,
-                      fillColor: widget.filledColor ?? MColor.bgTextFiled,
+                      fillColor: widget.filledColor,
                       contentPadding: const EdgeInsets.all(2),
                       counterText: "",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: _focusNodes[index].hasFocus
                               ? BorderSide(
-                                  color: widget.borderSideColor ??
-                                      MColor.bgTextFiledBorder,
+                                  color: widget.borderSideColor ,
                                   width:
                                       widget.borderSideWidth?.toDouble() ?? 1.0)
                               : BorderSide.none),
@@ -172,3 +172,4 @@ class _MOtpState extends State<MOtp> {
     }
   }
 }
+*/

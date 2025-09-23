@@ -10,6 +10,8 @@ enum ConsoleColor {
   reset('\x1B[0m');
 
   final String code;
+
   const ConsoleColor(this.code);
+
   String getColor() => code;
 }
